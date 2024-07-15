@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ulearning_app/common/routes/routes.dart';
 import 'package:ulearning_app/common/values/app_styles.dart';
 import 'package:ulearning_app/global.dart';
 import 'package:ulearning_app/pages/application/application.dart';
@@ -14,10 +15,11 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Capstone Project',
       theme: AppTheme.appThemeData,
       initialRoute: '/',
       routes: {
@@ -26,7 +28,10 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => const SignUp(),
         '/application': (context) => const Application(),
       },
-      onGenerateRoute: () => RandomFunc(),
+      // onGenerateRoute: (settings) {
+      //   AppPages.generateRouteSettings(settings);
+      // },
+      // onGenerateRoute: AppPages.generateRouteSettings,
     );
   }
 }

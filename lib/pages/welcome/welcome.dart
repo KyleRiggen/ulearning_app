@@ -19,7 +19,7 @@ class Welcome extends ConsumerWidget {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
           body: Container(
             margin: const EdgeInsets.only(top: 30),
             child: Stack(
@@ -54,6 +54,8 @@ class Welcome extends ConsumerWidget {
                       index: 2,
                       context: context,
                     ),
+
+                    // third
                     WelcomeWidgets().welcomeColumn(
                       _controller,
                       imagePath: 'assets/images/boy.png',
