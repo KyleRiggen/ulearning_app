@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ulearning_app/common/values/constants.dart';
 import 'package:ulearning_app/common/widgets/app_shadow.dart';
 import 'package:ulearning_app/common/widgets/text_widgets.dart';
+import 'package:ulearning_app/global.dart';
 
 class WelcomeWidgets {
   Widget welcomeColumn(
@@ -26,7 +28,7 @@ class WelcomeWidgets {
         Container(
           margin: const EdgeInsets.only(top: 15),
           padding: const EdgeInsets.only(left: 30, right: 30),
-          child: TextWidgets().text16Normal(text: subTitle),
+          child: Text16Normal(text: subTitle),
         ),
         _nextButton(index, controller, context),
       ],
@@ -44,6 +46,13 @@ class WelcomeWidgets {
             curve: Curves.linear,
           );
         } else {
+          //bool deviceFirstTime = Global.storageService.getDeviceFirstOpen();
+          // print("deviceFirstTime: $deviceFirstTime");
+
+          // remember if we are first time or not to visit the welcome screen
+          Global.storageService
+              .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_KEY, true);
+
           Navigator.pushNamed(
             context,
             '/signIn',
@@ -61,12 +70,36 @@ class WelcomeWidgets {
           right: 25,
         ),
         child: Center(
-          child: TextWidgets().text16Normal(
+          child: Text16Normal(
             text: index < 3 ? "Next" : "Get Started",
             color: Colors.white,
           ),
         ),
       ),
     );
+  }
+}
+
+class AppOnboardingPage extends StatelessWidget {
+  final PageController controller;
+  final String imagePath;
+  final String title;
+  final String subTitle;
+  final int index;
+  final BuildContext context;
+
+  const AppOnboardingPage({
+    super.key,
+    required this.controller,
+    required this.imagePath,
+    required this.title,
+    required this.subTitle,
+    required this.index,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ulearning_app/common/routes/routes.dart';
+import 'package:ulearning_app/common/services/http_util.dart';
 import 'package:ulearning_app/common/values/app_styles.dart';
 import 'package:ulearning_app/global.dart';
-import 'package:ulearning_app/pages/application/application.dart';
-import 'package:ulearning_app/pages/sign_in/sign_in.dart';
-import 'package:ulearning_app/pages/sign_up/sign_up.dart';
-import 'package:ulearning_app/pages/welcome/welcome.dart';
 
 Future<void> main() async {
   await Global.init();
+  //HttpUtil().post("/api/login");
+
   runApp(const ProviderScope(child: MyApp()));
 }
+
+final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,19 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navKey,
       title: 'Capstone Project',
       theme: AppTheme.appThemeData,
       initialRoute: '/',
-      routes: {
-        '/': (context) => Welcome(),
-        '/signIn': (context) => const SignIn(),
-        '/signUp': (context) => const SignUp(),
-        '/application': (context) => const Application(),
-      },
-      // onGenerateRoute: (settings) {
-      //   AppPages.generateRouteSettings(settings);
-      // },
-      // onGenerateRoute: AppPages.generateRouteSettings,
+      onGenerateRoute: AppPages.generateRouteSettings,
     );
   }
 }

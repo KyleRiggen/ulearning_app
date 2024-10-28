@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ulearning_app/common/utils/image_res.dart';
+import 'package:ulearning_app/common/values/app_colors.dart';
 
 class ImageWidgets {
   Widget appImage({
-    String imagePath = 'assets/icons/user.png',
+    String imagePath = ImageRes.defaultImage,
     double width = 16,
     double height = 16,
   }) {
-    return Image.asset(imagePath.isEmpty ? 'assets/icons/user.png' : imagePath,
+    return Image.asset(imagePath.isEmpty ? ImageRes.defaultImage : imagePath,
+        width: width, height: height);
+  }
+
+  Widget appImageWithColor({
+    String imagePath = ImageRes.defaultImage,
+    double width = 16,
+    double height = 16,
+    Color color = AppColors.primaryElement,
+  }) {
+    return Image.asset(imagePath.isEmpty ? ImageRes.defaultImage : imagePath,
         width: width, height: height);
   }
 }

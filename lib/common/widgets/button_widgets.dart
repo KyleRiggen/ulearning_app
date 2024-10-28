@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ulearning_app/common/values/app_colors.dart';
 import 'package:ulearning_app/common/widgets/app_shadow.dart';
 import 'package:ulearning_app/common/widgets/text_widgets.dart';
-import 'package:ulearning_app/pages/sign_in/widgets/sign_in_widgets.dart';
+import 'package:ulearning_app/features/sign_in/view/widgets/sign_in_widgets.dart';
 
 class ButtonWidgets {
   final appShadow = AppShadow();
@@ -24,14 +24,14 @@ class ButtonWidgets {
         height: height,
         decoration: appShadow.appBoxShadow(
           color: isLogin ? AppColors.primaryElement : Colors.white,
-          border: isLogin
+          boxBorder: isLogin
               ? null
               : Border.all(
-                  color: AppColors.primaryFourElementText,
+                  color: AppColors.primaryFourthElementText,
                 ),
         ),
         child: Center(
-          child: textWidgets.text16Normal(
+          child: Text16Normal(
             text: buttonName,
             color:
                 isLogin ? AppColors.primaryBackground : AppColors.primaryText,

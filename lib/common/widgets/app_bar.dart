@@ -3,14 +3,10 @@ import 'package:ulearning_app/common/values/app_colors.dart';
 import 'package:ulearning_app/common/widgets/text_widgets.dart';
 
 class AppBarWidgets {
-  final textWidgets = TextWidgets();
-  // final appShadow = AppShadow();
-  // final imageWidgets = ImageWidgets();
-
   AppBar buildAppBar({String title = ''}) {
     return AppBar(
       //backgroundColor: Colors.black,
-      title: textWidgets.text16Normal(
+      title: Text16Normal(
         text: title,
         color: AppColors.primaryText,
       ),

@@ -1,25 +1,29 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ulearning_app/common/entities/user.dart';
+import 'package:ulearning_app/common/models/user.dart';
 import 'package:ulearning_app/common/global_loader/global_loader.dart';
+import 'package:ulearning_app/common/services/http_util.dart';
 import 'package:ulearning_app/common/utils/popup_messages.dart';
 import 'package:ulearning_app/common/values/constants.dart';
+import 'package:ulearning_app/features/sign_in/repo/sign_in_repo.dart';
 import 'package:ulearning_app/global.dart';
-// import 'package:ulearning_app/pages/application/application.dart';
-import 'package:ulearning_app/pages/sign_in/notifier/sign_in_notifier.dart';
+import 'package:ulearning_app/features/sign_in/provider/sign_in_notifier.dart';
+import 'package:ulearning_app/main.dart';
 
 class SignInController {
   final popUpMessages = PopupMessages();
-  late WidgetRef ref;
+  // late WidgetRef ref;
 
-  SignInController({required this.ref});
+  SignInController();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> handleSignIn() async {
+  Future<void> handleSignIn(WidgetRef ref) async {
     var state = ref.read(signInNotifierProvider);
 
     String email = state.email;
@@ -39,10 +43,7 @@ class SignInController {
     }
     ref.read(appLoaderProvider.notifier).setLoaderValue(true);
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      final credential = await SignInRepo.firebaseSignIn(email, password);
 
       if (credential.user == null) {
         popUpMessages.toastInfo('user not found');
@@ -95,14 +96,17 @@ class SignInController {
 
     // have local storage
     try {
-      var navigator = Navigator.of(ref.context);
+      // var navigator = Navigator.of(ref.context);
 
-      Global.storageService
-          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, '123');
+      Global.storageService.setString(
+          AppConstants.STORAGE_USER_PROFILE_KEY,
+          jsonEncode(
+              {'name': 'doubloonin', 'email': 'info@doubloon.in', 'age': 34}));
       Global.storageService
           .setString(AppConstants.STORAGE_USER_TOKEN_KEY, '12345');
 
-      navigator.pushNamedAndRemoveUntil('/application', (route) => false);
+      navKey.currentState
+          ?.pushNamedAndRemoveUntil('/application', (route) => false);
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
