@@ -8,6 +8,7 @@ import 'package:ulearning_app/global.dart';
 Future<void> main() async {
   await Global.init();
   //HttpUtil().post("/api/login");
+  // test github desktop
 
   runApp(const ProviderScope(child: MyApp()));
 }
